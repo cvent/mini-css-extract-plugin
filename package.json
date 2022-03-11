@@ -1,19 +1,18 @@
 {
-  "name": "mini-css-extract-plugin",
+  "name": "@cvent/mini-css-extract-plugin",
   "version": "1.6.2",
   "description": "extracts CSS into separate files",
   "license": "MIT",
-  "repository": "webpack-contrib/mini-css-extract-plugin",
+  "repository": "cvent/mini-css-extract-plugin",
   "author": "Tobias Koppers @sokra",
-  "homepage": "https://github.com/webpack-contrib/mini-css-extract-plugin",
-  "bugs": "https://github.com/webpack-contrib/mini-css-extract-plugin/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/webpack"
-  },
+  "homepage": "https://github.com/cvent/mini-css-extract-plugin",
+  "bugs": "https://github.com/cvent/mini-css-extract-plugin/issues",
   "main": "dist/cjs.js",
   "engines": {
     "node": ">= 10.13.0"
+  },
+  "publishConfig": {
+    "registry": "http://nexus.core.cvent.org:8081/nexus/content/repositories/npm-local/"
   },
   "scripts": {
     "start": "npm run build -- -w",

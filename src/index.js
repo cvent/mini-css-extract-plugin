@@ -357,6 +357,8 @@ class MiniCssExtractPlugin {
           ? 'text/css'
           : options.linkType,
       attributes: options.attributes,
+      maxRetries: 5,
+      retryDelay: 1000,
     };
 
     if (!this.options.chunkFilename) {
@@ -807,13 +809,40 @@ class MiniCssExtractPlugin {
                       Template.indent([
                         "var errorType = event && (event.type === 'load' ? 'missing' : event.type);",
                         'var realHref = event && event.target && event.target.href || fullhref;',
-                        'var err = new Error("Loading CSS chunk " + chunkId + " failed.\\n(" + realHref + ")");',
-                        'err.code = "CSS_CHUNK_LOAD_FAILED";',
-                        'err.type = errorType;',
-                        'err.request = realHref;',
-                        'delete installedCssChunks[chunkId]',
-                        'linkTag.parentNode.removeChild(linkTag)',
-                        'reject(err);',
+                        'var ele = event.target;',
+                        'if (ele.tagName === "LINK" && ele.getAttribute("rel") === "stylesheet") {',
+                        Template.indent([
+                          'var chunkUrl = new URL(ele.href);',
+                          'var reloadCount = parseInt(chunkUrl.searchParams.get("css-chunk-reload") || 0);',
+                          `if (reloadCount < ${
+                            this.runtimeOptions.maxRetries || 5
+                          }) {`,
+                          Template.indent([
+                            'setTimeout(() => {',
+                            Template.indent([
+                              'chunkUrl.searchParams.set("css-chunk-reload", reloadCount + 1)',
+                              'var reloadLinkTag = ele.cloneNode(true);',
+                              'reloadLinkTag.href = chunkUrl.href.replace(chunkUrl.origin, "");',
+                              'reloadLinkTag.onerror = onLinkComplete;',
+                              'reloadLinkTag.onload = resolve;',
+                              'ele.parentNode.insertBefore(reloadLinkTag, ele.nextSibling);',
+                              'ele.remove();',
+                            ]),
+                            `}, ${this.runtimeOptions.retryDelay || 1000});`,
+                            'return true;',
+                          ]),
+                          '} else {',
+                          Template.indent([
+                            'var err = new Error("Loading CSS chunk " + chunkId + " failed.\\n(" + realHref + ")");',
+                            'err.code = "CSS_CHUNK_LOAD_FAILED";',
+                            'err.type = errorType;',
+                            'err.request = realHref;',
+                            'delete installedCssChunks[chunkId]',
+                            'reject(err);',
+                          ]),
+                          '}',
+                          '}',
+                        ]),
                       ]),
                       '}',
                     ]),
@@ -941,12 +970,37 @@ class MiniCssExtractPlugin {
                       Template.indent([
                         "var errorType = event && (event.type === 'load' ? 'missing' : event.type);",
                         'var realHref = event && event.target && event.target.href || fullhref;',
-                        'var err = new Error("Loading CSS chunk " + chunkId + " failed.\\n(" + realHref + ")");',
-                        'err.code = "CSS_CHUNK_LOAD_FAILED";',
-                        'err.type = errorType;',
-                        'err.request = realHref;',
-                        'linkTag.parentNode.removeChild(linkTag)',
-                        'reject(err);',
+                        'var ele = event.target;',
+                        'if (ele.tagName === "LINK" && ele.getAttribute("rel") === "stylesheet") {',
+                        Template.indent([
+                          'var chunkUrl = new URL(ele.href);',
+                          'var reloadCount = parseInt(chunkUrl.searchParams.get("css-chunk-reload") || 0);',
+                          'if (reloadCount < 5) {',
+                          Template.indent([
+                            'setTimeout(() => {',
+                            Template.indent([
+                              'chunkUrl.searchParams.set("css-chunk-reload", reloadCount + 1)',
+                              'var reloadLinkTag = ele.cloneNode(true);',
+                              'reloadLinkTag.href = chunkUrl.href.replace(chunkUrl.origin, "");',
+                              'reloadLinkTag.onerror = onLinkComplete;',
+                              'reloadLinkTag.onload = resolve;',
+                              'ele.parentNode.insertBefore(reloadLinkTag, ele.nextSibling);',
+                              'ele.remove();',
+                            ]),
+                            '}, 1000);',
+                            'return true;',
+                          ]),
+                          '} else {',
+                          Template.indent([
+                            'var err = new Error("Loading CSS chunk " + chunkId + " failed.\\n(" + realHref + ")");',
+                            'err.code = "CSS_CHUNK_LOAD_FAILED";',
+                            'err.type = errorType;',
+                            'err.request = realHref;',
+                            'reject(err);',
+                          ]),
+                          '}',
+                          '}',
+                        ]),
                       ]),
                       '}',
                     ]

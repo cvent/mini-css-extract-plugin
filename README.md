@@ -84,6 +84,8 @@ module.exports = {
 |                  **[`attributes`](#attributes)**                  |      `{Object}`      |                 `{}`                  | Adds custom attributes to tag                                                 |
 |                    **[`linkType`](#linkType)**                    | `{String\|Boolean}`  |              `text/css`               | Allows loading asynchronous chunks with a custom link type                    |
 | **[`experimentalUseImportModule`](#experimentalUseImportModule)** |     `{Boolean}`      |                `false`                | Use an experimental webpack API to execute modules instead of child compilers |
+|                  **[`maxRetries`](#maxRetries)**                  |      `{number}`      |                  `5`                  | The number of times to try reloading a CSS chunk after failure.               |
+|                  **[`retryDelay`](#retryDelay)**                  |      `{number}`      |                `1000`                 | The time in milliseconds to wait before trying to reload a CSS chunk.         |
 
 #### `filename`
 
@@ -288,6 +290,20 @@ module.exports = {
   },
 };
 ```
+
+#### `maxRetries`
+
+Type: `number`
+Default: `5`
+
+The number of times to try reloading a CSS chunk after failure. Chunks are reloaded by inserting a `<link>` with the same `href`. (The number of retries is stored in the `css-chunk-reload` search parameter in the link's `href`.)
+
+#### `retryDelay`
+
+Type: `number`
+Default: `1000`
+
+The time in milliseconds to wait before trying to reload a CSS chunk. Chunks are reloaded by inserting a `<link>` with the same `href`.
 
 ### Loader Options
 
