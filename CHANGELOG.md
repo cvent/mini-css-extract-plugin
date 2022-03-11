@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/cvent/mini-css-extract-plugin/compare/v1.6.2...v1.7.0) (2022-03-11)
+
+
+### Features
+
+* add support for automatic reloading of failed CSS chunks ([397a43a](https://github.com/cvent/mini-css-extract-plugin/commit/397a43ad740bc7c0be207cacdeb9e2dde47723de))
+
 ### [1.6.2](https://github.com/webpack-contrib/mini-css-extract-plugin/compare/v1.6.1...v1.6.2) (2021-06-28)
 
 ### Bug Fixes

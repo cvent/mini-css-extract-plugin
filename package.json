@@ -1,6 +1,6 @@
 {
   "name": "@cvent/mini-css-extract-plugin",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "extracts CSS into separate files",
   "license": "MIT",
   "repository": "cvent/mini-css-extract-plugin",
