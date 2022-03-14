@@ -822,7 +822,7 @@ class MiniCssExtractPlugin {
                             Template.indent([
                               'chunkUrl.searchParams.set("css-chunk-reload", reloadCount + 1)',
                               'var reloadLinkTag = ele.cloneNode(true);',
-                              'reloadLinkTag.href = chunkUrl.href.replace(chunkUrl.origin, "");',
+                              'reloadLinkTag.href = chunkUrl.href;',
                               'reloadLinkTag.onerror = onLinkComplete;',
                               'reloadLinkTag.onload = resolve;',
                               'ele.parentNode.insertBefore(reloadLinkTag, ele.nextSibling);',
@@ -981,7 +981,7 @@ class MiniCssExtractPlugin {
                             Template.indent([
                               'chunkUrl.searchParams.set("css-chunk-reload", reloadCount + 1)',
                               'var reloadLinkTag = ele.cloneNode(true);',
-                              'reloadLinkTag.href = chunkUrl.href.replace(chunkUrl.origin, "");',
+                              'reloadLinkTag.href = chunkUrl.href;',
                               'reloadLinkTag.onerror = onLinkComplete;',
                               'reloadLinkTag.onload = resolve;',
                               'ele.parentNode.insertBefore(reloadLinkTag, ele.nextSibling);',
