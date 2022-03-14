@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/cvent/mini-css-extract-plugin/compare/v1.7.0...v1.7.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* incorrect link href on css chunk reload ([ab7dde4](https://github.com/cvent/mini-css-extract-plugin/commit/ab7dde48eb3764e6c16aad1df4fe95659174d98c))
+
 ## [1.7.0](https://github.com/cvent/mini-css-extract-plugin/compare/v1.6.2...v1.7.0) (2022-03-11)
 
 
