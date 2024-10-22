@@ -51,10 +51,10 @@
     "schema-utils": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.5",
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.25.9",
+    "@babel/eslint-parser": "^7.25.9",
+    "@babel/preset-env": "^7.25.9",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@webpack-contrib/eslint-config-webpack": "^3.0.0",
